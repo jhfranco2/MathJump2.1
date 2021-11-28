@@ -70,7 +70,7 @@ public class juego extends Application{
 		    case "RIGHT":
 		       x = x+10;
 		       System.out.println("Se presiono la tecla:" + evento.getCode());
-		       System.out.println("x:" + x);
+		       System.out.println("x :" + x);
 		       
 		       
 		       break;
