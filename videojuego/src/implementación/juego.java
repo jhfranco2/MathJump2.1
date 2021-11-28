@@ -72,7 +72,7 @@ public class juego extends Application{
 		       System.out.println("Se presiono la tecla:" + evento.getCode());
 		       System.out.println("x :" + x);
 		       //cambio
-		       int n = 1;
+		       
 		       
 		       
 		       break;
