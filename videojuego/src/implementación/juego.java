@@ -1,8 +1,11 @@
 package implementación;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import clases.Fondo;
 import clases.Jugador;
+import clases.Tile;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 
@@ -28,12 +31,28 @@ public class juego extends Application{
 	private int x = 0;
 	//se define al jugador.
 	private Jugador jugador;
+	//se crea objeto de tipo fondo
+	private Fondo fondo;
 	public static boolean arriba;
 	public static boolean abajo;
 	public static boolean izquierda;
 	public static boolean derecha;
 	//todas las imagenes quedaran guardadas aqui.
 	public static HashMap<String, Image> imagenes;
+	//private Tile tile;
+	private ArrayList<Tile> tiles;
+	private int tilemap[][] = {
+			{1,0,1,0,2,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,5,5,5,5,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+	};
 	
     public static void main(String[] args) {
 		launch(args);
@@ -73,12 +92,16 @@ public class juego extends Application{
 	//logica del juego.
 	public  void actualizarEstado(){
 		jugador.mover();
+		fondo.mover();
 	}
 	//sirve para inicializar los componentes.
 	public void inicializarComponentes() {
 		imagenes = new HashMap<String, Image>();
 		cargarImagenes();
-		jugador = new Jugador(20,40,3,"halo");
+		jugador = new Jugador(20,40,"halo",3,0);
+		fondo = new Fondo(0,0,"fdesierto","fmarino1",5);
+		inicializarTiles();
+		//tile = new Tile(0,0,"tilemap",0,420,460,66,66);
 		root = new Group();
 		escena = new Scene(root,700,500);
 		lienzo = new Canvas(700,500);
@@ -86,18 +109,39 @@ public class juego extends Application{
 		graficos = lienzo.getGraphicsContext2D();
 		
 		
+		
 	}
-	
+	//con este metodo se puede recorrer el arerglo tilemap y se podran añadir las imagenes deacuerdo a lo que se quiera diseñar en el escenario.
+	public void inicializarTiles() {
+		tiles = new ArrayList<Tile>();
+		for(int i=0;i<tilemap.length;i++) {
+			for(int j=0;j<tilemap[i].length;j++) {
+				if(tilemap[i][j]!=0) {
+				this.tiles.add(new Tile(tilemap[i][j],j*70,i*70,"tilemap",0,70,70));
+				}
+				
+			}
+		}
+	}
 	public void cargarImagenes() {
 	    imagenes.put("halo", new Image("halo1.2.png"));	
+	    imagenes.put( "fmarino1", new Image("fmarino1.jpg"));
+	    imagenes.put( "fdesierto", new Image("fdesierto.jpg"));
+	    imagenes.put( "tilemap", new Image("tilemap.png"));
+       
 	}
 	//sirve para pintar la interface.
   public void pintar () {
 	  //un rectangulo para hubicar a halo.
 	  //graficos.fillRect(0, 0, 90,70);
 	  //para la imagen de halo.
-	  graficos.drawImage(new Image("fmarino1.jpg"), 0, 0);
+	  fondo.pintar(graficos);
+	 //graficos.drawImage(imagenes.get("tilemap"), 420,460,70,70,0,0,70,70);
+	  //tile.pintar(graficos);
+	  for(int i=0;i<tiles.size();i++) 
+		  tiles.get(i).pintar(graficos);
 	  jugador.pintar(graficos);
+	  
 	  
 }
   //Controlara lo que hace el personaje.
