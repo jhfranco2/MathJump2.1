@@ -29,6 +29,7 @@ public class juego extends Application{
     private Canvas lienzo;
     //Método main ejecuta el metodo lauch.
 	private int x = 0;
+	private int j;
 	//se define al jugador.
 	
 	//private Jugador jugador;
