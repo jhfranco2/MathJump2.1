@@ -60,5 +60,6 @@ public class Jugador extends ObjetoJuego{
 		if(juego.abajo) 
 			//Mover hacia la abajo
 			y+= velocidad;
+			   
 	}
 }

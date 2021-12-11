@@ -23,7 +23,7 @@ public class Tile extends ObjetoJuego {
 			this.yImagen = 70;
 			break;
 		case 3:
-			this.xImagen = 0;
+			this.xImagen = 70;
 			this.yImagen = 140;
 			break;
 		case 4:
@@ -34,6 +34,9 @@ public class Tile extends ObjetoJuego {
 			this.xImagen = 460;
 			this.yImagen = 460;
 	        break;
+		case 6:
+			this.xImagen = 0;
+			this.yImagen = 788;
 		}
 	}
 

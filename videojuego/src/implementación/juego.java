@@ -5,10 +5,11 @@ import java.util.HashMap;
 
 import clases.Fondo;
 import clases.Jugador;
+import clases.JugadorAnimado;
 import clases.Tile;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,7 +17,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.event.EventHandler;
 
 public class juego extends Application{
 
@@ -30,28 +30,32 @@ public class juego extends Application{
     //Método main ejecuta el metodo lauch.
 	private int x = 0;
 	//se define al jugador.
-	private Jugador jugador;
+	
+	//private Jugador jugador;
+	private JugadorAnimado jugadorAnimado;
 	//se crea objeto de tipo fondo
 	private Fondo fondo;
 	public static boolean arriba;
 	public static boolean abajo;
 	public static boolean izquierda;
 	public static boolean derecha;
+	public static boolean space;
 	//todas las imagenes quedaran guardadas aqui.
 	public static HashMap<String, Image> imagenes;
 	//private Tile tile;
 	private ArrayList<Tile> tiles;
 	private int tilemap[][] = {
-			{1,0,1,0,2,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0},
-			{0,5,5,5,5,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,6,3,0,0,0,0},
+			{0,0,0,5,5,5,0,0,0,0},
+			{0,0,0,0,5,3,0,0,0,0},
+			{5,5,5,5,5,5,5,5,5,5},
 			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0},
+			
 	};
 	
     public static void main(String[] args) {
@@ -81,8 +85,8 @@ public class juego extends Application{
 			@Override
 			public void handle(long tiempoActual) {
 				double t = (tiempoActual - timeInicial) / 1000000000.0 ;
-				System.out.println(t);
-				actualizarEstado();
+				
+				actualizarEstado(t);
 				pintar();
 			}
 			
@@ -90,15 +94,18 @@ public class juego extends Application{
 		animationTimer.start();//En esta linea empieza el ciclo de juego
 	}
 	//logica del juego.
-	public  void actualizarEstado(){
-		jugador.mover();
+	public  void actualizarEstado(double t){
+		//jugador.mover();
+		jugadorAnimado.calcularFrame(t);
+		jugadorAnimado.mover();
 		fondo.mover();
 	}
 	//sirve para inicializar los componentes.
 	public void inicializarComponentes() {
 		imagenes = new HashMap<String, Image>();
 		cargarImagenes();
-		jugador = new Jugador(20,40,"halo",3,0);
+		//jugador = new Jugador(20,40,"halo",3,0);
+		jugadorAnimado = new JugadorAnimado(20,150,"jhon",3,0,"descanso");
 		fondo = new Fondo(0,0,"fdesierto","fmarino1",5);
 		inicializarTiles();
 		//tile = new Tile(0,0,"tilemap",0,420,460,66,66);
@@ -124,11 +131,12 @@ public class juego extends Application{
 		}
 	}
 	public void cargarImagenes() {
-	    imagenes.put("halo", new Image("halo1.2.png"));	
+	    imagenes.put("halo", new Image("haloc7.png"));	
 	    imagenes.put( "fmarino1", new Image("fmarino1.jpg"));
 	    imagenes.put( "fdesierto", new Image("fdesierto.jpg"));
 	    imagenes.put( "tilemap", new Image("tilemap.png"));
-       
+        imagenes.put("jhon", new Image("jhon117.png"));
+	    
 	}
 	//sirve para pintar la interface.
   public void pintar () {
@@ -140,8 +148,9 @@ public class juego extends Application{
 	  //tile.pintar(graficos);
 	  for(int i=0;i<tiles.size();i++) 
 		  tiles.get(i).pintar(graficos);
-	  jugador.pintar(graficos);
-	  
+	      jugadorAnimado.pintar(graficos);
+	      //jugador.pintar(graficos);
+	
 	  
 }
   //Controlara lo que hace el personaje.
@@ -157,9 +166,13 @@ public class juego extends Application{
 		    switch(evento.getCode().toString()) {
 		        case "RIGHT":
 		            derecha = true;
+		            jugadorAnimado.setDireccion(1);
+		            jugadorAnimado.setAnimacionActual("correr");
 		            break;
 		        case "LEFT":
 		    	    izquierda = true;
+		    	    jugadorAnimado.setDireccion(-1);
+		    	    jugadorAnimado.setAnimacionActual("correr");
 		           	break;
 		        case "UP":
 		    	    arriba = true;
@@ -168,8 +181,8 @@ public class juego extends Application{
 		    	    abajo = true;
 		    	    break;
 		        case "SPACE":
-		        	jugador.setVelocidad(10);
-		        	break;
+		        	jugadorAnimado.setVelocidad(10);
+		        	break;                    
 		        	
 		    }
 		}
@@ -185,9 +198,13 @@ public class juego extends Application{
 			switch(evento.getCode().toString()) {
 	        case "RIGHT":
 	            derecha = false;
+	            
+	            jugadorAnimado.setAnimacionActual("descanso");
 	            break;
 	        case "LEFT":
 	    	    izquierda = false;
+	    	    
+	    	    jugadorAnimado.setAnimacionActual("descanso");
 	           	break;
 	        case "UP":
 	    	    arriba = false;
@@ -196,7 +213,7 @@ public class juego extends Application{
 	    	    abajo = false;
 	    	    break;
 	        case "SPACE":
-	        	jugador.setVelocidad(5);
+	        	jugadorAnimado.setVelocidad(5);
 	        	
 			}
 		}
