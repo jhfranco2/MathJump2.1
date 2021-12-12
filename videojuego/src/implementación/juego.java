@@ -132,7 +132,7 @@ public class juego extends Application{
 		}
 	}
 	public void cargarImagenes() {
-	    imagenes.put("halo", new Image("haloc7.png"));	
+	    int s;
 	    imagenes.put( "fmarino1", new Image("fmarino1.jpg"));
 	    imagenes.put( "fdesierto", new Image("fdesierto.jpg"));
 	    imagenes.put( "tilemap", new Image("tilemap.png"));
