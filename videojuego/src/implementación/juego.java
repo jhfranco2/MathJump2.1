@@ -181,9 +181,7 @@ public class juego extends Application{
 		        case "DOWN":
 		    	    abajo = true;
 		    	    break;
-		        case "SPACE":
-		        	jugadorAnimado.setVelocidad(10);
-		        	break;                    
+		                         
 		        	
 		    }
 		}
@@ -213,8 +211,7 @@ public class juego extends Application{
 	        case "DOWN":
 	    	    abajo = false;
 	    	    break;
-	        case "SPACE":
-	        	jugadorAnimado.setVelocidad(5);
+	       
 	        	
 			}
 		}

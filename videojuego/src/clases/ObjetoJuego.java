@@ -3,10 +3,10 @@ package clases;
 import javafx.scene.canvas.GraphicsContext;
 //Se le indica a el objeto juego los atributos y metodos que heredara a los hijos.
 public abstract class ObjetoJuego {
-	protected int x;
-	protected int y;
-	protected String nombreImagen;
-	protected int velocidad ;
+public int x ;
+public int y ;
+public String nombreImagen ;
+public int velocidad  ;
 	protected int ancho;
 	protected int alto;
 	
@@ -21,37 +21,5 @@ public abstract class ObjetoJuego {
 	public abstract void pintar(GraphicsContext graficos);
 	
 	public abstract void mover();
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public String getNombreImagen() {
-		return nombreImagen;
-	}
-
-	public void setNombreImagen(String nombreImagen) {
-		this.nombreImagen = nombreImagen;
-	}
-
-	public int getVelocidad() {
-		return velocidad;
-	}
-
-	public void setVelocidad(int velocidad) {
-		this.velocidad = velocidad;
-	}
 	
 }

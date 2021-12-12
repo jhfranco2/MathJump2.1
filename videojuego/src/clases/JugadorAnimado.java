@@ -127,6 +127,10 @@ public class JugadorAnimado extends ObjetoJuego{
 				y+= velocidad;
 	        			   
 		}
+
+
+
+		
 	}
 
 
