@@ -46,16 +46,16 @@ public class juego extends Application{
 	//private Tile tile;
 	private ArrayList<Tile> tiles;
 	private int tilemap[][] = {
-			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,6,3,0,0,0,0},
-			{0,0,0,5,5,5,0,0,0,0},
-			{0,0,0,0,5,3,0,0,0,0},
-			{5,5,5,5,5,5,5,5,5,5},
-			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,6,5,4,0,0,0},
+			{0,0,3,2,0,0,0,0,7,0,0},
+			{5,5,5,5,4,0,1,0,6,5,5},
+			{0,0,0,0,0,0,0,0,0,0,0},
+			{0,7,0,2,0,3,0,0,0,7,0},
+			{5,5,5,5,5,5,8,5,5,5,5},
+			{9,9,9,9,9,9,10,9,9,9,9},
+			{5,5,5,5,5,5,5,5,5,5,5},
+			{0,0,0,0,0,0,0,0,0,0,5},
 			
 	};
 	
@@ -72,7 +72,7 @@ public class juego extends Application{
 		//asignar escena a la ventana
 		ventana.setScene(escena);
 		//asigna titulo para la ventana.
-		ventana.setTitle("Super juego");
+		ventana.setTitle("Math Jump");
 		//muestra la ventana
 		ventana.show();
 		cicloJuego();
@@ -106,7 +106,7 @@ public class juego extends Application{
 		imagenes = new HashMap<String, Image>();
 		cargarImagenes();
 		//jugador = new Jugador(20,40,"halo",3,0);
-		jugadorAnimado = new JugadorAnimado(20,150,"jhon",3,0,"descanso");
+		jugadorAnimado = new JugadorAnimado(1,335,"jhon",3,0,"descanso");
 		fondo = new Fondo(0,0,"fdesierto","fmarino1",5);
 		inicializarTiles();
 		//tile = new Tile(0,0,"tilemap",0,420,460,66,66);
@@ -125,7 +125,7 @@ public class juego extends Application{
 		for(int i=0;i<tilemap.length;i++) {
 			for(int j=0;j<tilemap[i].length;j++) {
 				if(tilemap[i][j]!=0) {
-				this.tiles.add(new Tile(tilemap[i][j],j*70,i*70,"tilemap",0,70,70));
+				this.tiles.add(new Tile(tilemap[i][j],j*68,i*67,"tilemap",0,68,67));
 				}
 				
 			}

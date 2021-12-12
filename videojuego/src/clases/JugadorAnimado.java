@@ -119,13 +119,13 @@ public class JugadorAnimado extends ObjetoJuego{
 			if(juego.izquierda) 
 				//Mover hacia la izquierda
 				x-= velocidad;
-			/*if(juego.arriba) 
+			if(juego.arriba) 
 				//Mover hacia la arriba
 				y-= velocidad;
 			if(juego.abajo) 
 				//Mover hacia la abajo
 				y+= velocidad;
-	        	*/		   
+	        			   
 		}
 	}
 
